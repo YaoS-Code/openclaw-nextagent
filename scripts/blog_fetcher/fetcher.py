@@ -1,4 +1,4 @@
-"""Your Blog Raw Fetcher v3 — 24 sources across 9 categories."""
+"""NexAgent AI Blog Raw Fetcher v3 — 24 sources across 9 categories."""
 
 import feedparser
 import json
@@ -292,7 +292,7 @@ def dedup_against_db(results):
 
 if __name__ == '__main__':
     print(f'{"="*60}')
-    print(f'Your Blog Raw Fetcher v3 — {datetime.now().isoformat()}')
+    print(f'NexAgent AI Blog Raw Fetcher v3 — {datetime.now().isoformat()}')
     print(f'{"="*60}')
 
     all_items = []
@@ -320,6 +320,6 @@ if __name__ == '__main__':
         with open(outfile, 'w') as f:
             json.dump(all_items, f, indent=2, ensure_ascii=False)
         print(f'\nSaved {len(all_items)} items to {outfile}')
-        print('Ready for OpenClaw (Your Agent) to process and publish.')
+        print('Ready for OpenClaw (凌骁) to process and publish.')
     else:
         print('\nNo new items to process.')

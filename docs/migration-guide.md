@@ -1,6 +1,6 @@
-# Migration Guide: Official OpenClaw → YourPlatform Setup
+# Migration Guide: Official OpenClaw → NexAgent Setup
 
-See the [blog post](https://your-domain.com/blog) for the full illustrated guide.
+See the [NexAgent Blog](https://nextagent.ca/zh/blog) for the full illustrated guide.
 
 ## Overview
 
@@ -17,7 +17,7 @@ This setup adds:
 2. Configure Discord channel
 3. Set default model to Claude Sonnet (Anthropic API)
 4. Set up PostgreSQL 17 + pgvector (see database-setup.md)
-5. Deploy Memory Service (see agentic-memory repo)
+5. Deploy Memory Service (see <https://github.com/YaoS-Code/agentic-memory>)
 6. Install custom skills: copy `skills/` to `~/.openclaw/workspace/skills/`
 7. Create workspace files: copy `workspace/` templates to `~/.openclaw/workspace/`
 8. Set up systemd services (see systemd/)
@@ -31,4 +31,4 @@ This setup adds:
 | v2026.3.31 | Breaking: nodes.run removed, use exec host=node |
 | v2026.3.22 | Breaking: Plugin SDK path changed to openclaw/plugin-sdk/* |
 
-Full changelog and impact analysis: see your-domain.com blog.
+Full changelog and impact analysis: see the [NexAgent Blog](https://nextagent.ca/zh/blog).

@@ -1,13 +1,15 @@
 [Unit]
-Description=OpenClaw Memory Service (pgvector + bge-m3)
-After=network.target postgresql.service redis.service
+Description=OpenClaw Memory Service (FastAPI + bge-m3 + pgvector)
+After=postgresql@17-main.service redis-server.service
+Wants=postgresql@17-main.service redis-server.service
 
 [Service]
-Type=simple
+Type=exec
 User=YOUR_USER
-WorkingDirectory=/home/YOUR_USER/openclaw-memory-service
-ExecStart=/home/YOUR_USER/openclaw-memory-service/venv/bin/uvicorn main:app --host 127.0.0.1 --port 18800
-Restart=always
+Group=YOUR_USER
+WorkingDirectory=/home/YOUR_USER/agentic-memory/memory-service
+ExecStart=/home/YOUR_USER/agentic-memory/memory-service/venv/bin/uvicorn main:app --host 127.0.0.1 --port 18800
+Restart=on-failure
 RestartSec=5
 Environment=PYTHONUNBUFFERED=1
 

@@ -2,13 +2,16 @@
 
 Timezone: YOUR_TIMEZONE (e.g. America/Vancouver)
 
-> Customize this file for your own setup. Remove or replace private sections.
+> Customize this file for your own setup. Replace all YOUR_* placeholders.
+> The Skills Index table is the most important part — it tells the LLM which SKILL.md to load for each type of request.
 
 ## Session Startup
 
 Only run these if the user's first message is about schedule/tasks/memory:
 1. `curl -s http://localhost:18800/recall -H "Content-Type: application/json" -d '{"context": "topic"}'`
 2. `curl -s http://localhost:18800/reminders/today`
+
+For quick questions, skip startup checks.
 
 ## Skills Index
 
@@ -34,12 +37,15 @@ Only run these if the user's first message is about schedule/tasks/memory:
 
 ### Memory
 
+Unified memory — PostgreSQL + pgvector + bge-m3. One entry point searches everything.
+
 **Search: always use `memory_search` first**
 - Searches workspace files + pgvector conversations simultaneously
 - For anything like "what did we do before" → memory_search, no curl
+- `memory_get` to read specific file lines after search
 
-**Write: use curl**
-\`\`\`bash
+**Write: use curl** (only these cases need curl)
+```bash
 # Store structured fact
 curl -s -X POST http://localhost:18800/facts \
   -H "Content-Type: application/json" \
@@ -49,14 +55,46 @@ curl -s -X POST http://localhost:18800/facts \
 curl -s -X POST http://localhost:18800/store \
   -H "Content-Type: application/json" \
   -d '{"content":"...","category":"decision"}'
-\`\`\`
+
+# Force workspace re-index (after editing workspace files)
+curl -s -X POST http://localhost:18800/workspace/sync -d '{"force":true}'
+```
+
+**Simple rule: search → memory_search, write → curl**
 
 ### Exec Policy
 
 Discord sessions have full exec access. Use directly — no need to route through task-queue.
+
+### Security
+
+- Never expose API keys/tokens in group chats
+- Memory is isolated by user_id
+- Only the owner's DM can execute shell commands
 
 ### Self-Learning Rules
 
 1. Command fails → `POST /learnings` (type=error, pattern_key)
 2. User corrects → `POST /learnings` (type=correction)
 3. Better method found → `POST /learnings` (type=best_practice)
+
+### General
+
+- Be concise. Execute then present results.
+- Ask before external actions (emails, public posts)
+
+## Auto Memory & Compaction
+
+**Auto-extract** — After significant exchanges:
+```bash
+curl -s -X POST http://localhost:18800/extract \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [...], "auto_store": true}'
+```
+
+**Auto-compact** — When conversations get long (>20 messages):
+```bash
+curl -s -X POST http://localhost:18800/compact \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [...]}'
+```
