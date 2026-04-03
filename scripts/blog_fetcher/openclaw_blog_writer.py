@@ -2,7 +2,7 @@
 """
 OpenClaw Daily Update Blog Writer
 每天从 GitHub 抓取 OpenClaw 最新 releases 和 commits，
-结合本地定制化配置，生成个性化升级分析文章，发布到 NexAgent Blog。
+结合本地定制化配置，生成个性化升级分析文章，发布到 Your Blog。
 """
 
 import json
@@ -46,7 +46,7 @@ log = logging.getLogger("openclaw_blog_writer")
 
 def gh_get(path: str) -> dict | list | None:
     url = f"{GITHUB_API}/{path.lstrip('/')}"
-    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json", "User-Agent": "NexAgent-Blog/1.0"})
+    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json", "User-Agent": "OpenClaw-BlogBot/1.0"})
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read())
@@ -136,7 +136,7 @@ def save_state(state: dict):
 
 # ── AI Article Generation ────────────────────────────────────────────────────
 
-PROMPT_TEMPLATE = """你是凌骁，NexAgent AI Blog 主笔，同时也是宋老师 OpenClaw 实例的专属 AI 助手。
+PROMPT_TEMPLATE = """你是Your Agent，Your Blog 主笔，同时也是the operator OpenClaw 实例的专属 AI 助手。
 
 今天需要你写一篇 OpenClaw 版本更新博客，分析新版本对**我们这个特定配置**的实际影响。
 
@@ -155,7 +155,7 @@ PROMPT_TEMPLATE = """你是凌骁，NexAgent AI Blog 主笔，同时也是宋老
 - **重点分析哪些更新直接影响我们的配置**（逐条对应：哪个 skill 受影响？AGENTS.md 需要改什么？服务架构需要调整吗？）
 - 如果某个变更与我们无关，直接说"对我们无影响"，不要水文
 - 给出具体的升级建议和操作步骤（如果有）
-- 语气：直接、专业，凌骁风格（不废话）
+- 语气：直接、专业，Your Agent风格（不废话）
 
 **英文版（200-350词）：**
 - English equivalent, same focus on our specific setup impact
@@ -215,7 +215,7 @@ def publish(article: dict, source_url: str, tags_extra: list[str] = []) -> bool:
         "tags":        tags,
         "source_url":  source_url,
         "source_name": "OpenClaw GitHub",
-        "author":      "NexAgent AI",
+        "author":      "Your Agent",
         "is_auto":     True,
         "published":   True,
     }

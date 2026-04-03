@@ -19,17 +19,17 @@ cloudflared tunnel create <project-name>
 ```yaml
 # ~/.cloudflared/<project-name>.yml
 tunnel: <TUNNEL_ID>
-credentials-file: /home/borui/.cloudflared/<TUNNEL_ID>.json
+credentials-file: /home/YOUR_USER/.cloudflared/<TUNNEL_ID>.json
 
 ingress:
-  - hostname: <subdomain>.borui.org
+  - hostname: <subdomain>.your-domain.com
     service: http://localhost:<PORT>
   - service: http_status:404
 ```
 
 ### 3. 配置 DNS
 ```bash
-cloudflared tunnel route dns <project-name> <subdomain>.borui.org
+cloudflared tunnel route dns <project-name> <subdomain>.your-domain.com
 ```
 
 ### 4. 启动服务
@@ -61,6 +61,6 @@ docker compose -f docker-compose.prod.yml up -d
 ## 注意事项
 
 - Tunnel 名称用项目名
-- 域名用 `*.borui.org` 子域名（除非主公另有指定）
+- 域名用 `*.your-domain.com` 子域名（除非the operator另有指定）
 - 数据库不暴露到公网
 - 部署完成后测试 HTTPS 可达性

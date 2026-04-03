@@ -1,6 +1,6 @@
-# Migration Guide: Official OpenClaw → NexAgent Setup
+# Migration Guide: Official OpenClaw → YourPlatform Setup
 
-See the [blog post](https://nextagent.ca/zh/blog) for the full illustrated guide.
+See the [blog post](https://your-domain.com/blog) for the full illustrated guide.
 
 ## Overview
 
@@ -31,4 +31,4 @@ This setup adds:
 | v2026.3.31 | Breaking: nodes.run removed, use exec host=node |
 | v2026.3.22 | Breaking: Plugin SDK path changed to openclaw/plugin-sdk/* |
 
-Full changelog and impact analysis: see nextagent.ca blog.
+Full changelog and impact analysis: see your-domain.com blog.

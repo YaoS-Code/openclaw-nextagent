@@ -111,7 +111,7 @@ results = tavily_search("AI healthcare AI diagnosis 2026", api_key, topic="news"
 # 3. 取 score 最高的结果
 best = max(results["results"], key=lambda x: x.get("score", 0))
 
-# 4. web_fetch 读原文（用凌骁的 web_fetch 工具）
+# 4. web_fetch 读原文（用Your Agent的 web_fetch 工具）
 # 然后基于原文内容写文章，不自己补
 
 # 5. 发布到 blog API

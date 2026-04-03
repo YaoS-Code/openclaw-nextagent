@@ -1,4 +1,4 @@
-"""NexAgent Blog Raw Fetcher v3 — 24 sources across 9 categories."""
+"""Your Blog Raw Fetcher v3 — 24 sources across 9 categories."""
 
 import feedparser
 import json
@@ -119,7 +119,7 @@ def fetch_reddit():
     results = []
     for url, source, cat in REDDIT_SOURCES:
         try:
-            req = urllib.request.Request(url, headers={'User-Agent': 'NexAgent-BlogBot/1.0'})
+            req = urllib.request.Request(url, headers={'User-Agent': 'OpenClaw-BlogBot/1.0'})
             feed = feedparser.parse(urllib.request.urlopen(req, timeout=15).read())
             count = min(len(feed.entries), 5)
             print(f'  {source}: {len(feed.entries)} entries, taking {count}')
@@ -274,7 +274,7 @@ def dedup_against_db(results):
     """Remove items already in the database."""
     try:
         import psycopg
-        conn = psycopg.connect('postgresql://oc_admin:oc_prod_2026_secure@127.0.0.1:5432/openclaw_club')
+        conn = psycopg.connect('postgresql://db_admin:YOUR_DB_PASSWORD@127.0.0.1:5432/my_agent_db')
         with conn.cursor() as cur:
             cur.execute('SELECT source_url FROM blog_posts WHERE source_url IS NOT NULL')
             existing = {row[0] for row in cur.fetchall()}
@@ -292,7 +292,7 @@ def dedup_against_db(results):
 
 if __name__ == '__main__':
     print(f'{"="*60}')
-    print(f'NexAgent Blog Raw Fetcher v3 — {datetime.now().isoformat()}')
+    print(f'Your Blog Raw Fetcher v3 — {datetime.now().isoformat()}')
     print(f'{"="*60}')
 
     all_items = []
@@ -320,6 +320,6 @@ if __name__ == '__main__':
         with open(outfile, 'w') as f:
             json.dump(all_items, f, indent=2, ensure_ascii=False)
         print(f'\nSaved {len(all_items)} items to {outfile}')
-        print('Ready for OpenClaw (凌骁) to process and publish.')
+        print('Ready for OpenClaw (Your Agent) to process and publish.')
     else:
         print('\nNo new items to process.')

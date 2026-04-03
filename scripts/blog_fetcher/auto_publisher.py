@@ -49,7 +49,7 @@ log = logging.getLogger("auto_publisher")
 # AI Content Generation via Anthropic SDK
 # ---------------------------------------------------------------------------
 
-ARTICLE_PROMPT_TEMPLATE = """你是凌骁，NexAgent AI Blog 的主笔。根据以下新闻信息，写一篇中英双语博客文章。
+ARTICLE_PROMPT_TEMPLATE = """你是Your Agent，Your Blog 的主笔。根据以下新闻信息，写一篇中英双语博客文章。
 
 原文信息：
 标题：{title}
@@ -166,7 +166,7 @@ def publish_article(article_data: dict, source_item: dict) -> dict | None:
         "tags": article_data.get("tags", []),
         "source_url": source_item.get("link", ""),
         "source_name": source_item.get("source", ""),
-        "author": "NexAgent AI",
+        "author": "Your Agent",
         "is_auto": True,
         "published": True,
     }

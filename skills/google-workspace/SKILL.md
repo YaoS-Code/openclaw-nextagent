@@ -65,6 +65,6 @@ gws drive +upload --file "/path/to/file"
 
 ## Notes
 
-- User email: songborui499@gmail.com
+- User email: songYOUR_USER499@gmail.com
 - All gws commands: add `2>&1 | grep -v keyring` to suppress log noise
 - For Sheets: always use the local API (`/sheets/create`, `/sheets/append`) — it's simpler and faster than gws CLI

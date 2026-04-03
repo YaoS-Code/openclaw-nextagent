@@ -76,7 +76,7 @@ curl -s -X POST http://localhost:18800/maintenance/promote-learnings
 ```
 
 升级目标：
-- `error + infra` → nextagent-website Skill 常见问题
+- `error + infra` → your-website Skill 常见问题
 - `best_practice` → AGENTS.md Rules
 - `correction` → SOUL.md 行为指南
 

@@ -1,6 +1,6 @@
 ---
 name: blog-fetcher
-description: 每日自动抓取 AI 新闻，生成中英文博客文章并发布到 NexAgent Blog。凌骁自己用 Claude 写文章。
+description: 每日自动抓取 AI 新闻，生成中英文博客文章并发布到 Your Blog。Your Agent自己用 Claude 写文章。
 metadata:
   {
     "openclaw": {
@@ -12,12 +12,12 @@ metadata:
 
 # Blog Auto-Fetcher Skill
 
-每日从多个来源抓取 AI 新闻，**你（凌骁）直接用 Claude 写文章**，发布到 NexAgent Blog。
+每日从多个来源抓取 AI 新闻，**你（Your Agent）直接用 Claude 写文章**，发布到 Your Blog。
 
 ## 触发条件
 
 - 定时触发（cron 每日 6AM Vancouver）
-- 宋老师说"抓新闻"、"更新blog"、"fetch news"
+- the operator说"抓新闻"、"更新blog"、"fetch news"
 
 ## 数据来源
 
@@ -101,7 +101,7 @@ print(json.dumps(results, indent=2, ensure_ascii=False))
 对每条数据，检查 source_url 是否已存在：
 
 ```bash
-psql -h 127.0.0.1 -U oc_admin -d openclaw_club -t -c "SELECT count(*) FROM blog_posts WHERE source_url = '<link>';"
+psql -h 127.0.0.1 -U db_admin -d my_agent_db -t -c "SELECT count(*) FROM blog_posts WHERE source_url = '<link>';"
 ```
 
 如果已存在，跳过。
@@ -139,7 +139,7 @@ psql -h 127.0.0.1 -U oc_admin -d openclaw_club -t -c "SELECT count(*) FROM blog_
 
 **必须先 web_fetch 读原文**，禁止凭已有知识补充内容（特别是版本号、价格、数字类信息）。
 
-对选中的每条新闻，你（凌骁）自己写：
+对选中的每条新闻，你（Your Agent）自己写：
 - 中文标题 + 英文标题
 - 中文摘要 (50字) + 英文摘要
 - 中文正文 (200-400字 Markdown 评论/解读) + 英文正文
@@ -155,7 +155,7 @@ psql -h 127.0.0.1 -U oc_admin -d openclaw_club -t -c "SELECT count(*) FROM blog_
 ### Step 4: 发布
 
 ```bash
-BOT_TOKEN=$(curl -s http://localhost:18800/facts | python3 -c "import json,sys;[print(f['value']) for f in json.load(sys.stdin) if f['key']=='openclaw_club_bot_token']" 2>/dev/null)
+BOT_TOKEN=$(curl -s http://localhost:18800/facts | python3 -c "import json,sys;[print(f['value']) for f in json.load(sys.stdin) if f['key']=='my_agent_db_bot_token']" 2>/dev/null)
 
 curl -s -X POST http://localhost:4001/api/bot/blog/posts \
   -H "Content-Type: application/json" \
@@ -176,7 +176,7 @@ curl -s -X POST http://localhost:4001/api/bot/blog/posts \
   "tags": ["ai", "news"],
   "source_url": "https://原文链接",
   "source_name": "TechCrunch",
-  "author": "NexAgent AI",
+  "author": "Your Agent",
   "is_auto": true,
   "published": true
 }
@@ -194,6 +194,6 @@ curl -s -X POST http://localhost:4001/api/bot/blog/posts \
 | automation, workflow, agent, 电商 | automation |
 | funding, startup, policy, 融资 | industry |
 | OpenClaw, ClawHub, skill registry | openclaw |
-| NexAgent, 实战, case study | insights |
+| YourPlatform, 实战, case study | insights |
 | medical, health, clinic, skincare, aesthetic, 医美, 医疗, 皮肤 | healthtech |
 | education, learning, student, tutor, school, AP, IB, 教育, 学习 | edtech |

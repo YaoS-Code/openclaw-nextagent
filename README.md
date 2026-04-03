@@ -1,6 +1,6 @@
 # openclaw-nextagent
 
-**NexAgent custom OpenClaw setup** — persistent memory with pgvector, 17 custom skills, Discord-native agent, Claude Sonnet 4.6.
+**Custom OpenClaw setup** — persistent memory with pgvector, 17 custom skills, Discord-native agent, Claude Sonnet 4.6.
 
 > A complete, production-running customization of [OpenClaw](https://github.com/openclaw/openclaw) deployed on a Linux laptop as a full AI assistant + content platform.
 
@@ -15,10 +15,10 @@
 
 Official OpenClaw gives you a powerful AI assistant framework. This repo shows how we took it further:
 
-| Official OpenClaw | This Setup (NexAgent Lingxiao) |
+| Official OpenClaw | This Setup (YourPlatform Your Agent) |
 |---|---|
 | Session-only memory (SQLite) | Persistent pgvector memory + structured facts |
-| Generic assistant | Named persona (Lingxiao) with SOUL.md + IDENTITY.md |
+| Generic assistant | Named persona (Your Agent) with SOUL.md + IDENTITY.md |
 | ClawHub skill ecosystem | 17 custom vertical skills |
 | Multi-channel support | Discord-native (DM + guild moderation) |
 | npm/Docker deployment | Native systemd, zero Docker |
@@ -31,7 +31,7 @@ Official OpenClaw gives you a powerful AI assistant framework. This repo shows h
 ```
 Discord (DM + Guild)
         │
-   OpenClaw Agent (凌骁 / Lingxiao)
+   OpenClaw Agent (Your Agent / Your Agent)
         │
         ├── AGENTS.md          ← skill routing + exec policy + memory rules
         ├── SOUL.md            ← persona baseline
@@ -43,12 +43,12 @@ Discord (DM + Guild)
         │       └── Redis                     ← hot-knowledge cache
         │
         ├── Business Backend (Flask :4001)
-        │       ├── Blog system (NexAgent AI Blog)
+        │       ├── Blog system (Your Blog)
         │       ├── Course platform (OpenClaw Club)
         │       └── Discord moderation log
         │
         └── Frontend (Next.js :3000, nginx, Cloudflare Tunnel)
-                └── nextagent.ca
+                └── your-domain.com
 ```
 
 ---
@@ -107,15 +107,15 @@ openclaw onboard   # choose Anthropic, enter API key
 ### 2. Set up PostgreSQL + pgvector
 ```bash
 sudo apt install postgresql-17 postgresql-17-pgvector
-sudo -u postgres psql -c "CREATE USER oc_admin WITH PASSWORD 'yourpass';"
-sudo -u postgres psql -c "CREATE DATABASE openclaw_club OWNER oc_admin;"
-psql -h 127.0.0.1 -U oc_admin -d openclaw_club -c "CREATE EXTENSION vector;"
-psql -h 127.0.0.1 -U oc_admin -d openclaw_club -f sql/memory_schema.sql
+sudo -u postgres psql -c "CREATE USER db_admin WITH PASSWORD 'yourpass';"
+sudo -u postgres psql -c "CREATE DATABASE my_agent_db OWNER db_admin;"
+psql -h 127.0.0.1 -U db_admin -d my_agent_db -c "CREATE EXTENSION vector;"
+psql -h 127.0.0.1 -U db_admin -d my_agent_db -f sql/memory_schema.sql
 ```
 
 ### 3. Deploy Memory Service
 ```bash
-git clone https://github.com/YaoS-Code/agentic-memory
+git clone https://github.com/YOUR_GITHUB_USERNAME/agentic-memory
 cd agentic-memory
 pip install -r requirements.txt
 uvicorn main:app --host 127.0.0.1 --port 18800
@@ -175,9 +175,9 @@ See [docs/migration-guide.md](docs/migration-guide.md) for full version changelo
 
 ## Related
 
-- [agentic-memory](https://github.com/YaoS-Code/agentic-memory) — The memory service used by this setup
+- [agentic-memory](https://github.com/YOUR_GITHUB_USERNAME/agentic-memory) — The memory service used by this setup
 - [OpenClaw](https://github.com/openclaw/openclaw) — The underlying agent framework
-- [NexAgent](https://nextagent.ca) — Where this all runs in production
+- [YourPlatform](https://your-domain.com) — Where this all runs in production
 
 ---
 

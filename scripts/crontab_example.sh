@@ -1,5 +1,5 @@
 #!/bin/bash
-# Example crontab entries for NexAgent OpenClaw setup
+# Example crontab entries for YourPlatform OpenClaw setup
 # Add to crontab with: crontab -e
 
 # Blog auto-fetch + publish — 6AM Vancouver (13:00 UTC)
